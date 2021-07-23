@@ -13,10 +13,12 @@ spec:
     metadata:
       labels:
         name: springboot
+        version: v1
     spec:
       containers:
       - image: sudipta007/spring-boot-mongo
         name: springboot
+        version: v1
         ports:
         - name: springboot
           containerPort: 8080      
@@ -27,14 +29,17 @@ kind: Service
 metadata:
   labels:
     name: springboot
+    version: v1
   name: springboot
+  version: v1
 spec:
   type: NodePort
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 8090
+      targetPort: 8090
   selector:
     name: springboot
+    version: v1
 ---
 # Mongo host path rc
 apiVersion: apps/v1
