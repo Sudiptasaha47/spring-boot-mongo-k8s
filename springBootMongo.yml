@@ -3,24 +3,24 @@ kind: Deployment
 metadata:
   labels:
     name: springboot
-  name: spring-controller
+  name: spring-controller-v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: springboot
+      name: springboot-v1
+      version: v1
   template:
     metadata:
       labels:
-        name: springboot
+        name: springboot-v1
         version: v1
     spec:
       containers:
       - image: sudipta007/spring-boot-mongo
-        name: springboot
-        version: v1
+        name: springboot-v1
         ports:
-        - name: springboot
+        - name: springboot-v1
           containerPort: 8080      
 ---
 # Node Port Service
@@ -28,17 +28,17 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: springboot
+    name: springboot-v1
     version: v1
-  name: springboot
-  version: v1
+  name: springboot-v1
+
 spec:
   type: NodePort
   ports:
-    - port: 8090
-      targetPort: 8090
+    - port: 8080
+      targetPort: 8080
   selector:
-    name: springboot
+    name: springboot-v1
     version: v1
 ---
 # Mongo host path rc
